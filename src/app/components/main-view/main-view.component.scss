@@ -1,0 +1,17 @@
+.container {
+  display: grid;
+  grid-template-columns: [first] max-content [line2] auto [end];
+
+  justify-content: stretch;
+  align-content: stretch;
+
+  height: 100vh;
+
+  .nav {
+    grid-column: 1/2;
+  }
+
+  .main {
+    grid-column: 2/3;
+  }
+}

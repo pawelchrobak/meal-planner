@@ -1,0 +1,15 @@
+<p>db-test works!</p>
+
+
+<input #input type="text">
+
+<button (click)="add(input.value)">ADD ING</button>
+
+<p>
+  uid: {{uid$ | async}}
+</p>
+
+
+<p>
+  db: {{userMail$ | async | json}}
+</p>

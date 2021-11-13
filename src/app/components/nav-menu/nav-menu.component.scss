@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: [first] repeat(auto-fill, 50px) [last-line];
+  row-gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  // grid-auto-flow: column;
+  
+  // justify-content: stretch;
+  
+  // grid-auto-flow: column;
+
+  height: 100%;
+
+  .menu-item {
+    grid-column: 1/2;
+  }
+
+  .last {
+    grid-column: 1/2;
+    grid-row-end: last-line;
+  }
+}
+
