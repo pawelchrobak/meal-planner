@@ -34,6 +34,13 @@ export class AwsStack extends cdk.Stack {
           appConstants.awsSSLCertArn
         ),
         defaultRootObject: 'index.html',
+        errorResponses: [
+          {
+            httpStatus: 403,
+            responsePagePath: '/index.html',
+            responseHttpStatus: 200,
+          },
+        ],
       }
     );
 
