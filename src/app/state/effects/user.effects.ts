@@ -4,7 +4,6 @@ import {
   authState,
   GoogleAuthProvider,
   signInWithPopup,
-  User,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';

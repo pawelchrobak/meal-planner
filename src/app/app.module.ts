@@ -12,7 +12,6 @@ import { DbTestComponent } from './components/db-test/db-test.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './state/effects/user.effects';
 import { commonReducers } from './state/reducers';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,10 +21,13 @@ import { MainViewComponent } from './components/main-view/main-view.component';
 import { IngredientsMainComponent } from './components/ingredients-main/ingredients-main.component';
 import { RecipesMainComponent } from './components/recipes-main/recipes-main.component';
 import { PlannerMainComponent } from './components/planner-main/planner-main.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RecipesListContainerComponent } from './components/recipes-list-container/recipes-list-container.component';
+import { RecipesListComponent } from './components/recipes-list/recipes-list.component';
+import { RecipesEffects, UserEffects } from './state/effects';
 
-const effects = [UserEffects];
+const effects = [UserEffects, RecipesEffects];
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ const effects = [UserEffects];
     IngredientsMainComponent,
     RecipesMainComponent,
     PlannerMainComponent,
+    RecipesListContainerComponent,
+    RecipesListComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,9 @@ service cloud.firestore {
 match /databases/{database}/documents {
   match /users/{uid} {
     allow read, write: if request.auth.uid == uid;
+      match /recipes/{recipe=**} {
+        allow read, write: true;
+      }
     }
   match /users/{user}/{document=**} {
     allow read, write: if request.auth.token.email == email;
