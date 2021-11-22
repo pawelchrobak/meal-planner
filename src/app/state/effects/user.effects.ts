@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   User,
 } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, tap, take, filter, switchMap, mapTo } from 'rxjs/operators';
 import { UserActions } from '../actions/user.actions';
@@ -43,5 +44,31 @@ export class UserEffects {
     )
   );
 
-  constructor(private actions$: Actions, public auth: Auth) {}
+  redirectAfterLogin$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(UserActions.loginSuccessful),
+        tap(() => {
+          this.router.navigate(['/planner']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  redirectAfterLogout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(UserActions.logoutSuccessful),
+        tap(() => {
+          this.router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions$: Actions,
+    private auth: Auth,
+    private router: Router
+  ) {}
 }

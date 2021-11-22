@@ -1,0 +1,13 @@
+$mobile-break: 599px;
+
+@mixin mobile {
+  @media screen and (max-width: #{$mobile-break}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: #{$mobile-break + 1}) {
+    @content;
+  }
+}
