@@ -3,13 +3,19 @@ import {
   collection,
   collectionData,
   Firestore,
-  collectionSnapshots,
+  addDoc,
+  deleteDoc,
+  doc,
 } from '@angular/fire/firestore';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { from, of } from 'rxjs';
+import { map, mapTo, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { RecipeModel } from 'src/app/models/recipe.model';
 import { DbActions } from '../actions/db.actions';
 import { UserActions } from '../actions/user.actions';
+import { AppState } from '../reducers';
+import { getUserUid } from '../selectors/user.selectors';
 
 @Injectable()
 export class RecipesEffects {
@@ -18,12 +24,35 @@ export class RecipesEffects {
       ofType(UserActions.loginSuccessful),
       switchMap(({ uid }) => {
         const recipes = collection(this.firestore, `users/${uid}/recipes`);
-        console.log();
         return collectionData(recipes, { idField: 'uid' });
       }),
       map((recipes) => {
         return DbActions.recipesUpdated({ recipes: recipes as RecipeModel[] });
       })
+    )
+  );
+
+  addRecipe$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DbActions.recipeAdd),
+      withLatestFrom(this.store.pipe(select(getUserUid))),
+      switchMap(([{ name }, uid]) => {
+        const recipes = collection(this.firestore, `users/${uid}/recipes`);
+        return from(addDoc(recipes, { name }));
+      }),
+      mapTo(DbActions.recipeAdded())
+    )
+  );
+
+  deleteRecipe$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DbActions.recipeDelete),
+      withLatestFrom(this.store.pipe(select(getUserUid))),
+      switchMap(([{ uid }, userUid]) => {
+        const docRef = doc(this.firestore, `users/${userUid}/recipes/${uid}`);
+        return from(deleteDoc(docRef));
+      }),
+      mapTo(DbActions.recipeDeleted())
     )
   );
 
@@ -80,5 +109,9 @@ export class RecipesEffects {
   //   { dispatch: false }
   // );
 
-  constructor(private actions$: Actions, private firestore: Firestore) {}
+  constructor(
+    private actions$: Actions,
+    private firestore: Firestore,
+    private store: Store<AppState>
+  ) {}
 }

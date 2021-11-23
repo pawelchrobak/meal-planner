@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { RecipeModel } from 'src/app/models';

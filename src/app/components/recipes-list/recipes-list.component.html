@@ -1,4 +1,9 @@
-<h3>All recipes:</h3>
-<ol>
-  <li *ngFor="let item of recipes">{{ item.name }} ({{ item.uid }})</li>
-</ol>
+<mat-list>
+  <mat-list-item *ngFor="let item of recipes">
+    <app-recipe-list-item [name]="item.name" (delete)="delete(item.uid || '')">
+    </app-recipe-list-item>
+  </mat-list-item>
+  <mat-list-item>
+    <app-recipe-list-add-container></app-recipe-list-add-container>
+  </mat-list-item>
+</mat-list>

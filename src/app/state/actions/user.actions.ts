@@ -10,7 +10,7 @@ enum UserActionsEnum {
 const loginCTA = createAction(UserActionsEnum.loginCTA);
 const loginSuccessful = createAction(
   UserActionsEnum.loginSuccessful,
-  props<{ uid: string }>()
+  props<{ uid: string; photoURL?: string }>()
 );
 
 const logoutCTA = createAction(UserActionsEnum.logoutCTA);
