@@ -24,8 +24,14 @@ export class UserEffects {
   successfulLogin$ = createEffect(() =>
     authState(this.auth).pipe(
       filter((user) => !!user),
-      // @ts-ignore
-      map((user) => UserActions.loginSuccessful({ uid: user.uid }))
+      map((user) => {
+        const payload = {
+          uid: user?.uid,
+          ...(user?.photoURL ? { photoURL: user.photoURL } : {}),
+        };
+        // @ts-ignore
+        return UserActions.loginSuccessful(payload);
+      })
     )
   );
 

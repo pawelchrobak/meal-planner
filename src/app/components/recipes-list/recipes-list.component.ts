@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { RecipeModel } from 'src/app/models';
+import { DbActions } from 'src/app/state/actions/db.actions';
+import { AppState } from 'src/app/state/reducers';
 
 @Component({
   selector: 'app-recipes-list',
@@ -12,10 +14,12 @@ import { RecipeModel } from 'src/app/models';
   styleUrls: ['./recipes-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipesListComponent implements OnInit {
+export class RecipesListComponent {
   @Input() public recipes: RecipeModel[] = [];
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  public delete(uid: string): void {
+    this.store.dispatch(DbActions.recipeDelete({ uid }));
+  }
 }

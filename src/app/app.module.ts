@@ -26,6 +26,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { RecipesListContainerComponent } from './components/recipes-list-container/recipes-list-container.component';
 import { RecipesListComponent } from './components/recipes-list/recipes-list.component';
 import { RecipesEffects, UserEffects } from './state/effects';
+import { RecipeListItemComponent } from './components/recipe-list-item/recipe-list-item.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { RecipeListAddComponent } from './components/recipe-list-add/recipe-list-add.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { RecipeListAddContainerComponent } from './components/recipe-list-add-container/recipe-list-add-container.component';
 
 const effects = [UserEffects, RecipesEffects];
 
@@ -41,12 +49,20 @@ const effects = [UserEffects, RecipesEffects];
     PlannerMainComponent,
     RecipesListContainerComponent,
     RecipesListComponent,
+    RecipeListItemComponent,
+    RecipeListAddComponent,
+    RecipeListAddContainerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
     MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

@@ -3,10 +3,12 @@ import { UserActions } from '../actions/user.actions';
 
 export interface UserState {
   uid: string | null;
+  photoURL: string | null;
 }
 
 const initialState: UserState = {
   uid: null,
+  photoURL: null,
 };
 
 export const userReducer = createReducer(
@@ -15,8 +17,9 @@ export const userReducer = createReducer(
     ...state,
     uid: null,
   })),
-  on(UserActions.loginSuccessful, (state, { uid }) => ({
+  on(UserActions.loginSuccessful, (state, { uid, photoURL }) => ({
     ...state,
     uid,
+    photoURL: photoURL || null,
   }))
 );
