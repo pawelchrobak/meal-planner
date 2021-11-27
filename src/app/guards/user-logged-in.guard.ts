@@ -7,24 +7,30 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { authState } from 'rxfire/auth';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+import { UserActions } from '../state/actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserLoggedInGuard implements CanActivate {
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private store: Store
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> {
-    // return true;
     return authState(this.auth).pipe(
+      take(1),
       map((user) => {
-        console.log('user guard', user);
+        this.store.dispatch(UserActions.saveRedirectRoute({ path: state.url }));
         return !!user || this.router.parseUrl('/login');
       })
     );

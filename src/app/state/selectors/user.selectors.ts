@@ -9,3 +9,8 @@ export const getPhotoURL = createSelector(
   getUserState,
   (user): string | null => user.photoURL
 );
+
+export const getRedirectionPath = createSelector(
+  getUserState,
+  (user): string | null => user.redirect
+);
