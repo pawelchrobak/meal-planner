@@ -7,8 +7,19 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, tap, take, filter, switchMap, mapTo } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import {
+  map,
+  tap,
+  take,
+  filter,
+  switchMap,
+  mapTo,
+  withLatestFrom,
+} from 'rxjs/operators';
 import { UserActions } from '../actions/user.actions';
+import { AppState } from '../reducers';
+import { getRedirectionPath } from '../selectors/user.selectors';
 
 @Injectable()
 export class UserEffects {
@@ -49,15 +60,15 @@ export class UserEffects {
     )
   );
 
-  redirectAfterLogin$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(UserActions.loginSuccessful),
-        tap(() => {
-          this.router.navigate(['/planner']);
-        })
-      ),
-    { dispatch: false }
+  redirectAfterLogin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.loginSuccessful),
+      withLatestFrom(this.store.pipe(select(getRedirectionPath))),
+      tap(([_, path]) => {
+        this.router.navigate([path || '/planner']);
+      }),
+      mapTo(UserActions.clearRedirectRoute())
+    )
   );
 
   redirectAfterLogout$ = createEffect(
@@ -74,6 +85,7 @@ export class UserEffects {
   constructor(
     private actions$: Actions,
     private auth: Auth,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 }
