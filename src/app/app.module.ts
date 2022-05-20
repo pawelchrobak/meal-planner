@@ -25,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RecipesListContainerComponent } from './components/recipes-list-container/recipes-list-container.component';
 import { RecipesListComponent } from './components/recipes-list/recipes-list.component';
-import { RecipesEffects, UserEffects } from './state/effects';
+import { PlansEffects, RecipesEffects, UserEffects } from './state/effects';
 import { RecipeListItemComponent } from './components/recipe-list-item/recipe-list-item.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -34,8 +34,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { RecipeListAddContainerComponent } from './components/recipe-list-add-container/recipe-list-add-container.component';
+import { PlannerMealsListingComponent } from './components/planner-meals-listing/planner-meals-listing.component';
+import { PlannerDayOverviewComponent } from './components/planner-day-overview/planner-day-overview.component';
+import { MatCardModule } from '@angular/material/card';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PlannerCarouselContainerComponent } from './components/planner-carousel-container/planner-carousel-container.component';
+import { PlannerCarouselComponent } from './components/planner-carousel/planner-carousel.component';
+import { PlannerMealsListingContainerComponent } from './components/planner-meals-listing-container/planner-meals-listing-container.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
-const effects = [UserEffects, RecipesEffects];
+const effects = [UserEffects, RecipesEffects, PlansEffects];
 
 @NgModule({
   declarations: [
@@ -52,6 +60,11 @@ const effects = [UserEffects, RecipesEffects];
     RecipeListItemComponent,
     RecipeListAddComponent,
     RecipeListAddContainerComponent,
+    PlannerMealsListingComponent,
+    PlannerDayOverviewComponent,
+    PlannerCarouselContainerComponent,
+    PlannerCarouselComponent,
+    PlannerMealsListingContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +76,9 @@ const effects = [UserEffects, RecipesEffects];
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
+    ScrollingModule,
+    DragDropModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

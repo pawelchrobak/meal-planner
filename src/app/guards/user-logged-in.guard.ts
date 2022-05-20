@@ -24,7 +24,7 @@ export class UserLoggedInGuard implements CanActivate {
   ) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot,
+    _: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> {
     return authState(this.auth).pipe(

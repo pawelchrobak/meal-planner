@@ -1,0 +1,23 @@
+<div [style]="'width:' + width + 'px'" class="card-wrapper">
+  <mat-card>
+    <mat-card-title>{{ day }}</mat-card-title>
+    <mat-card-content>
+      <div
+        class="drop-zone"
+        (dragover)="debug($event)"
+        (drop)="debug($event)"
+      >
+        jajecznica
+      </div>
+      <mat-divider></mat-divider>
+      <p class="drop-zone" cdkDrop>
+        tofu
+      </p>
+      <mat-divider></mat-divider>
+      <p class="drop-zone" cdkDropList (cdkDropListDropped)="debugAny($event)">
+        robercikowe
+      </p>
+    </mat-card-content>
+  </mat-card>
+  {{ dayPlan$ | async | json }}
+</div>

@@ -1,0 +1,20 @@
+.meals-list {
+  &__wrapper {
+    background-color: rebeccapurple;
+    display: inline-block;
+
+    padding: 0.5rem;
+  }
+
+  &__item {
+    background-color: cornflowerblue;
+    display: inline-block;
+    padding: 1rem;
+    margin: 0.25rem;
+
+    &:hover {
+      cursor: move;
+      background-color: aqua;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<ng-container *ngFor="let meal of recipes">
+  <div class="meals-list__wrapper"cdkDrop>
+    <div class="meals-list__item" cdkDrag>
+      {{ meal.name }}
+    </div>
+  </div>
+</ng-container>

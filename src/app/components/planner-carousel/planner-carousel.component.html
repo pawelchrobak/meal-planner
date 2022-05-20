@@ -1,0 +1,43 @@
+<div class="scroll-container">
+  <button mat-fab color="primary" class="btn-scroll" (click)="scrollToPrev()">
+    <mat-icon>navigate_before</mat-icon>
+  </button>
+  <cdk-virtual-scroll-viewport
+    orientation="horizontal"
+    [itemSize]="ELEMENT_WIDTH"
+    class="scroll-viewport"
+    (scrolledIndexChange)="setIndex($event)"
+  >
+    <ng-container
+      *cdkVirtualFor="let day of daysList; let first = first; let last = last"
+    >
+      <button
+        mat-flat-button
+        *ngIf="first"
+        (click)="expandPrevious()"
+        [style]="'width:' + ELEMENT_WIDTH + 'px'"
+      >
+        LOAD PREV
+      </button>
+      <app-planner-day-overview
+        [day]="day"
+        [width]="ELEMENT_WIDTH"
+      ></app-planner-day-overview>
+      <button
+        mat-flat-button
+        *ngIf="last"
+        (click)="expandNext()"
+        [style]="'width:' + ELEMENT_WIDTH + 'px'"
+      >
+        LOAD NEXT
+      </button>
+    </ng-container>
+  </cdk-virtual-scroll-viewport>
+  <button mat-fab color="primary" class="btn-scroll" (click)="scrollToNext()">
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+</div>
+
+<p>
+  {{ dayPlansDateIndexed | json }}
+</p>

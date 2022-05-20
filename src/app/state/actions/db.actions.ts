@@ -33,5 +33,5 @@ export const DbActions = {
   recipeAdd,
   recipeAdded,
   recipeDelete,
-  recipeDeleted,
+  recipeDeleted
 };

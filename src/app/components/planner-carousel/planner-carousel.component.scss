@@ -1,0 +1,29 @@
+.expand-btn {
+  width: 132px;
+}
+
+.scroll-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .btn-scroll {
+    margin: 0.5rem;
+    z-index: 1;
+  }
+
+  .scroll-viewport {
+    height: 20rem;
+    width: auto;
+    flex-grow: 1;
+
+    .cdk-virtual-scroll-content-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
